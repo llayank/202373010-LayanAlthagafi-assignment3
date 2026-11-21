@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Portfolio of Layan Althagafi, a Software Engineering student at KFUPM."
+    />
+    <title>Layan Althagafi | Portfolio</title>
+
+    <link rel="preconnect" href="https://api.github.com" crossorigin />
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Apply the saved (or system) theme before the page paints to avoid a flash of the wrong theme -->
+    <script>
+      try {
+        const theme =
+          localStorage.getItem("theme") ||
+          (window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (error) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    </script>
+
+    <!-- defer: download in parallel, run after the HTML is parsed -->
+    <script src="js/script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Navigation Bar -->
+    <header>
+      <nav class="navbar" aria-label="Main">
+        <a class="logo" href="#about">Layan</a>
+
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#github">GitHub</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <button type="button" id="theme-toggle" aria-label="Toggle theme">
+          🌓
+        </button>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- About Section -->
+      <section id="about" class="section">
+        <div class="container about-content">
+          <h1 id="greeting">Hello!</h1>
+          <p class="tagline">Software Engineering Student</p>
+          <p class="bio">
+            I am a Junior Software Engineering student passionate about
+            designing efficient systems and building intuitive, responsive web
+            experiences. Driven by curiosity in algorithms, software
+            architecture, and modern development workflows, I love turning
+            complex logic into clean, functional solutions.
+          </p>
+
+          <!-- Visitor name: saved in localStorage and used in the greeting -->
+          <form id="visitor-form" class="visitor-form">
+            <label for="visitor-name">What should I call you?</label>
+            <div class="visitor-row">
+                <input
+                type="text"
+                id="visitor-name"
+                maxlength="30"
+                placeholder="Your name"
+                autocomplete="given-name"
+                aria-describedby="visitor-error"
+              />
+              <button type="submit" class="btn">Save</button>
+            </div>
+            <span class="field-error" id="visitor-error"></span>
+          </form>
+
+          <p id="visitor-saved" class="visitor-saved" hidden>
+            <button type="button" id="visitor-reset" class="link-btn">
+              Not you? Change name
+            </button>
+          </p>
+
+          <!-- Visit timer -->
+          <p class="visit-timer">
+            You've been here for <span id="visit-time">0s</span>
+          </p>
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section id="projects" class="section">
+        <div class="container">
+          <h2>Featured Projects</h2>
+
+          <div class="project-controls">
+            <div
+              id="filter-buttons"
+              class="project-filters"
+              role="group"
+              aria-label="Filter by technology"
+            >
+              <button
+                type="button"
+                class="filter-btn active"
+                data-filter="all"
+                aria-pressed="true"
+              >
+                All
+              </button>
+              <button
+                type="button"
+                class="filter-btn"
+                data-filter="html"
+                aria-pressed="false"
+              >
+                HTML/CSS
+              </button>
+              <button
+                type="button"
+                class="filter-btn"
+                data-filter="javascript"
+                aria-pressed="false"
+              >
+                JavaScript
+              </button>
+              <button
+                type="button"
+                class="filter-btn"
+                data-filter="full-stack"
+                aria-pressed="false"
+              >
+                Full-Stack
+              </button>
+            </div>
+
+            <div class="select-row">
+              <div class="select-group">
+                <label for="level-select">Level</label>
+                <select id="level-select">
+                  <option value="all">All levels</option>
+                  <option value="beginner">Beginner</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+              </div>
+
+              <div class="select-group">
+                <label for="sort-select">Sort by</label>
+                <select id="sort-select">
+                  <option value="newest">Newest first</option>
+                  <option value="oldest">Oldest first</option>
+                  <option value="name">Name (A–Z)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <p id="level-message" class="level-message" hidden></p>
+          <p id="results-count" class="results-count" aria-live="polite"></p>
+
+          <div id="projects-grid" class="projects-grid"></div>
+
+          <p id="empty-projects" class="empty-message" hidden>
+            No projects match these choices.
+            <button type="button" id="reset-filters" class="link-btn">
+              Reset filters
+            </button>
+          </p>
+
+          <noscript>
+            <p class="empty-message">
+              Please enable JavaScript to view the projects.
+            </p>
+          </noscript>
+        </div>
+      </section>
+
+      <!-- GitHub Section (external API) -->
+      <section id="github" class="section">
+        <div class="container">
+          <h2>Latest on GitHub</h2>
+          <p class="section-intro">
+            My most recently updated public repositories, loaded live from the
+            GitHub API.
+          </p>
+
+          <div id="repo-status" class="repo-status" aria-live="polite"></div>
+          <div id="repo-list" class="repo-grid"></div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="section">
+        <div class="container">
+          <h2>Get in Touch</h2>
+
+          <!-- novalidate: JavaScript handles validation so messages are consistent across browsers -->
+          <form id="contact-form" class="contact-form" novalidate>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Your Name"
+                autocomplete="name"
+                required
+                aria-describedby="name-error"
+              />
+              <span class="field-error" id="name-error"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Your Email"
+                autocomplete="email"
+                required
+                aria-describedby="email-error"
+              />
+              <span class="field-error" id="email-error"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                maxlength="500"
+                placeholder="Write your message here..."
+                required
+                aria-describedby="message-error char-count"
+              ></textarea>
+              <div class="field-meta">
+                <span class="field-error" id="message-error"></span>
+                <span class="char-count" id="char-count">0 / 500</span>
+              </div>
+            </div>
+
+            <button type="submit" id="submit-btn" class="btn btn-submit">
+              Send Message
+            </button>
+            <p id="form-status" class="status-msg" role="status"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-content">
+        <p>&copy; 2026 Layan Althagafi</p>
+      </div>
+    </footer>
+
+    <!-- Templates: cloned by JavaScript so card markup is written only once -->
+    <template id="project-card-template">
+      <article class="project-card show-card">
+        <div class="project-info">
+          <div class="project-meta">
+            <span class="level-badge"></span>
+            <time class="project-date"></time>
+          </div>
+          <h3 class="project-title"></h3>
+          <p class="project-desc"></p>
+          <div class="tags"></div>
+        </div>
+      </article>
+    </template>
+
+    <template id="repo-card-template">
+      <article class="repo-card show-card">
+        <h3>
+          <a class="repo-name" target="_blank" rel="noopener noreferrer"></a>
+        </h3>
+        <p class="repo-desc"></p>
+        <div class="repo-meta">
+          <span class="repo-lang"></span>
+          <span class="repo-stars"></span>
+          <span class="repo-updated"></span>
+        </div>
+      </article>
+    </template>
+  </body>
+</html>
