@@ -67,11 +67,9 @@ All choices are kept in one `state` object. Every change goes through `setState(
 - `VALIDATORS` holds one rule function per field, and each returns an error message or `""`.
 - A field is checked when the user leaves it (`blur`), then checked live (`input`) while they correct it.
 - On submit, all fields are validated at once. If any field is invalid, focus moves to the first one and submission stops.
-- If everything is valid, the button is disabled, a short send is simulated (there is no backend), a confirmation appears, and the form resets.
 
 ### Visit timer
-The timer stores the start time and calculates `Date.now() - startTime` every second. It doesn't add 1 per tick,
-because browsers slow down timers in background tabs and a tick counter would drift.
+The timer stores the start time and calculates `Date.now() - startTime` every second. 
 
 ## 4. State Management
 
@@ -94,7 +92,6 @@ because browsers slow down timers in background tabs and a tick counter would dr
 - Cards are built in a `DocumentFragment` and inserted in one DOM update.
 - Event delegation: one listener on the filter group instead of one per button.
 - Unused CSS (Interests and Languages sections from Assignment 2) was removed.
-- `prefers-reduced-motion` turns off animations for visitors who request it.
 - No images, fonts, or libraries to download.
 
 ## 6. Security and Accessibility

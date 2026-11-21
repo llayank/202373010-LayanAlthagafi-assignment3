@@ -70,12 +70,6 @@ There is no `assets/` folder because the site does not use any images.
 No installation or libraries are needed. An internet connection is needed only for the GitHub section;
 the rest of the site works offline.
 
-### Deploying to GitHub Pages
-1. Push the project to GitHub.
-2. Go to **Settings → Pages**.
-3. Under **Source**, choose the `main` branch and the `/ (root)` folder, then click **Save**.
-4. After about a minute, the site will be live at `https://llayank.github.io/202373010-LayanAlthagafi-assignment3/`.
-
 ## Browser Support
 
 Works in current versions of Chrome, Edge, Firefox, and Safari, on desktop and mobile.
